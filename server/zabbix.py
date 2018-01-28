@@ -20,31 +20,33 @@ api = Api(weapp)
 zabbix_server = ZabbixAPI(server=confd['zabbix_host'])
 zabbix_server.login(user=confd['zabbix_user'], password=confd['zabbix_passwd'])
 
+
 class ALL_HOST(Resource):
-    """
-    获取所有主机名和主机Id
-    """
     def get(self):
+        # 获取所有主机名和主机Id
         host_id_name = {}
         hosts_info = zabbix_server.host.get()
         for i in hosts_info:
             host_id_name[i['hostid']] = i['host']
         return host_id_name, 200
 
+
 class HOST_GRAPH(Resource):
     def get(self, hostid):
         # 获取主机的监控项id和名称
         gra_id_name = {}
-        graph_data = zabbix_server.graph.get(hostids=hostid, output="extend", sortfield="name")
+        graph_data = zabbix_server.graph.get(
+            hostids=hostid, output="extend", sortfield="name")
         for gra in graph_data:
             gra_id_name[gra['graphid']] = gra['name']
-        return {hostid:gra_id_name}, 200
+        return {hostid: gra_id_name}, 200
 
 
 class GRAPH(Resource):
     def get(self, graphid):
         # 获取监控项数据
-        graph_data = zabbix_server.graphitem.get(output="extend", graphid=graphid)
+        graph_data = zabbix_server.graphitem.get(
+            output="extend", graphid=graphid)
         return graph_data, 200
 
 
@@ -55,4 +57,3 @@ api.add_resource(GRAPH, '/graph/<int:graphid>')
 
 if __name__ == '__main__':
     weapp.run(debug=True)
-    
