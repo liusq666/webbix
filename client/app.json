@@ -1,0 +1,13 @@
+{
+  "pages":[
+    "pages/host/host",
+    "pages/host/graph/graph",
+    "pages/host/hostitem/hostitem"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeBbix",
+    "navigationBarTextStyle":"black"
+  }
+}
