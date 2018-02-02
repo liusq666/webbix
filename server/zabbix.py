@@ -38,12 +38,14 @@ class HOST_GRAPH(Resource):
 
 
 class GRAPH_OF_ITEM(Resource):
+    # 图表对应的监控项
     def get(self, graphid):
         graph_item = zabbix_server.item.get(ouput="extend", graphids=graphid, sortfield="name")
         return graph_item, 200
 
 
 class ITEM_DATA(Resource):
+    # 监控项数据
     def get(self, itemid):
         item_data = zabbix_server.history.get(
             output="extend", history=3, itemids=itemid, sortfield="clock", sortorder="DESC", limit=10
