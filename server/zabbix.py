@@ -31,28 +31,30 @@ class ALL_HOST(Resource):
         return host_id_name, 200
 
 
-class HOST_GRAPH(Resource):
+class HOST_ITEMS(Resource):
     def get(self, hostid):
         # 获取主机的监控项id和名称
-        gra_id_name = {}
-        graph_data = zabbix_server.graph.get(
-            hostids=hostid, output="extend", sortfield="name")
-        for gra in graph_data:
-            gra_id_name[gra['graphid']] = gra['name']
-        return {hostid: gra_id_name}, 200
+        item_id_name = {}
+        items_data = zabbix_server.item.get(
+            hostids=hostid, output=["itemids","name", "key_"], sortfield="name")
+        for item in items_data:
+            item_id_name[item['itemid']] = [item['name'], item['key_']]
+        return {"items": item_id_name}, 200
 
 
-class GRAPH(Resource):
-    def get(self, graphid):
-        # 获取监控项数据
-        graph_data = zabbix_server.graphitem.get(
-            output="extend", graphid=graphid)
-        return graph_data, 200
+class ITEM_DATA(Resource):
+    def get(self, itemid):
+        item_data = zabbix_server.history.get(
+            output="extend", history=3, itemids=itemid, sortfield="clock", sortorder="DESC", limit=10
+        )
+        return item_data, 200
 
 
 api.add_resource(ALL_HOST, '/ah')
-api.add_resource(HOST_GRAPH, '/<hostid>')
-api.add_resource(GRAPH, '/graph/<int:graphid>')
+api.add_resource(HOST_ITEMS, '/host/<hostid>')
+api.add_resource(ITEM_DATA, '/item/<int:itemid>')
+
+
 
 
 if __name__ == '__main__':
