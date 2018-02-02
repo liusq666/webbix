@@ -1,5 +1,5 @@
 <view>
   <view wx:for="{{allhost}}">
-    <navigator url="hostitem/hostitem?hostid={{index}}">{{item}}</navigator>
+    <navigator url="host_graph/host_graph?hostid={{index}}">{{item}}</navigator>
   </view>
 </view>

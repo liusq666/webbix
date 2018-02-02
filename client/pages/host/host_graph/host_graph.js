@@ -4,7 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    hostgraph:'',
+    graph:'',
   },
 
   /**
@@ -13,10 +13,10 @@ Page({
   onLoad: function (options) {
     wx.showLoading({
       title: 'loding...',
-      icon:'loding',
+      icon: 'loding',
       duration: 100
     })
-    this.GET_HOST_ITEM()
+    this.Graph_Data()
   },
 
   /**
@@ -68,18 +68,19 @@ Page({
     
   },
 
-  // 根据ID查询主机所有监控项
-  GET_HOST_ITEM: function(options) {
+
+  // 图表数据
+  Graph_Data: function(options) {
     var that = this
     var hostid = that.options.hostid
     wx.request({
-      url: "http://127.0.0.1:5000/"+hostid,
+      url: "http://127.0.0.1:5000/host_graph/" + hostid,
       header: {
         'content-type': 'application/json' // 默认值
       },
-      success: function (res) {
-        that.setData({"hostgraph":res.data[hostid]})
-        // console.log(that.data.hostgraph)
+      success: function(res) {
+        that.setData({"hostgraph": res.data})
+        console.log(that.data)
       }
     })
   }

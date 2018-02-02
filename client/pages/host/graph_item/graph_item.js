@@ -4,7 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    graph:'',
+    
   },
 
   /**
@@ -16,7 +16,7 @@ Page({
       icon: 'loding',
       duration: 100
     })
-    this.GRAPH_DATA()
+    this.Get_Graph_Item()
   },
 
   /**
@@ -68,13 +68,13 @@ Page({
     
   },
 
-
-  // 图表数据
-  GRAPH_DATA: function(options) {
+  // 根据图形ID，获取关联的监控项
+  Get_Graph_Item: function(options) {
     var that = this
-    var graphid = that.options.graphid
+    var graphid = this.options.graphid
+    console.log(graphid)
     wx.request({
-      url: "http://127.0.0.1:5000/graph/"+graphid,
+      url: "http://127.0.0.1:5000/graph_item/"+graphid,
       header: {
         'content-type': 'application/json' // 默认值
       },

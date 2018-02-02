@@ -1,8 +1,8 @@
 {
   "pages":[
     "pages/host/host",
-    "pages/host/graph/graph",
-    "pages/host/hostitem/hostitem"
+    "pages/host/host_graph/host_graph",
+    "pages/host/graph_item/graph_item"
   ],
   "window":{
     "backgroundTextStyle":"light",

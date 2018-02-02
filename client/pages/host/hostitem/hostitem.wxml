@@ -1,6 +1,0 @@
-<view>
-  <view wx:for="{{hostgraph}}">
-    <!-- {{index}}:{{item}} -->
-    <navigator url='../graph/graph?graphid={{index}}'>{{item}}</navigator>
-  </view>
-</view>
